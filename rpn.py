@@ -5,6 +5,8 @@ import operator
 operators = {
 	'+': operator.add,
 	'-': operator.sub,
+	'*': operator.mul,
+	'/': operator.truediv,
 }
 
 def calculate(arg):
@@ -19,8 +21,8 @@ def calculate(arg):
 			arg1 = stack.pop()
 			result = function(arg1, arg2)
 			stack.append(result)
-		print(stack)
 
+	print(result)
 	return stack.pop()
 
 def main():
