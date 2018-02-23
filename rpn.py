@@ -1,12 +1,25 @@
 #!/usr/bin/env python 3
 
 import operator
+import logging
+import sys
+#for homework, you might want 'import math', and use things in the math library in our operator dictionary
+
+#TODO: copy, repeat operator, handle divide by 0, 
+
+logger = logging.getLogger(__name__)
+#logger.setLevel(logging.DEBUG)
+sh = logging.StreamHandler(sys.stdout)
+logger.addHandler(sh)
 
 operators = {
 	'+': operator.add,
 	'-': operator.sub,
 	'*': operator.mul,
 	'/': operator.truediv,
+	'%': operator.mod,
+	'^': operator.pow,
+	'.': operator.floordiv
 }
 
 def calculate(arg):
@@ -21,6 +34,10 @@ def calculate(arg):
 			arg1 = stack.pop()
 			result = function(arg1, arg2)
 			stack.append(result)
+		logger.debug(stack)
+
+	if len(stack) != 1:
+		raise TypeError
 
 	print(result)
 	return stack.pop()
