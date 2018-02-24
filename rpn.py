@@ -5,7 +5,7 @@ import logging
 import sys
 #for homework, you might want 'import math', and use things in the math library in our operator dictionary
 
-#TODO: copy, repeat operator, handle divide by 0, 
+#TODO: handle divide by 0, 
 
 logger = logging.getLogger(__name__)
 #logger.setLevel(logging.DEBUG)
@@ -19,7 +19,10 @@ operators = {
 	'/': operator.truediv,
 	'%': operator.mod,
 	'^': operator.pow,
-	'.': operator.floordiv
+	'.': operator.floordiv,
+	'&': operator.and_,
+	'|': operator.or_,
+	'~': operator.inv,
 }
 
 def calculate(arg):
@@ -31,9 +34,16 @@ def calculate(arg):
 		except ValueError:
 			function = operators[token]
 			arg2 = stack.pop()
-			arg1 = stack.pop()
-			result = function(arg1, arg2)
-			stack.append(result)
+			try:
+				result = function(arg2)
+				stack.append(result)
+			except:
+				arg1 = stack.pop()
+				try:
+					result = function(arg1, arg2)
+					stack.append(result)
+				except ZeroDivisionError:
+					print('Division by Zero Error')
 		logger.debug(stack)
 
 	if len(stack) != 1:
