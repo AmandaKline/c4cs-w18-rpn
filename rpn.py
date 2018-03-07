@@ -23,7 +23,7 @@ operators = {
 	'&': operator.and_,
 	'|': operator.or_,
 	'~': operator.inv,
-}  
+}
 
 def calculate(arg):
 	stack = list()
